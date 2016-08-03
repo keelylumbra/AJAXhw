@@ -9,68 +9,97 @@ $(document).ready(function(){
 		// displayMovieInfo function now re-renders the HTML to display the appropriate content.
 		function displayGIFInfo() {
 
-			$("#gifsView").empty();
+			
 
-			var food = $(this).attr('data-name');
-			var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=dc6zaTOxFJmzC&limit=10";
+				
+
+				var food = $(this).attr('data-name');
+			
+
+		
+				
+
+
 
 			// Creates AJAX call for the specific movie being
-			$.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+			$.ajax({url: "http://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=dc6zaTOxFJmzC&limit=10", method: 'GET'}).done(function(response) {
 
+				var results = response.data;
+
+                for (var i = 0; i < results.length; i++) {
+                    var gifDiv = $('<div class="item">')
+
+                    var rating = results[i].rating;
+
+              
+
+                    var p = $('<p>').text("Rating: " + rating);
+                    var $imgs = $('<img class="img" data-still="' + results[i].images.downsized_still.url  + '" data-animate="'+ results[i].images.downsized_medium.url + '" src=" ' + results[i].images.downsized_still.url  + ' "><data-state="still"></span>');
+
+                    
+
+                    gifDiv.append(p)
+                    gifDiv.append($imgs)
+
+                    $('#gifsView').prepend(gifDiv);
+                
 
 				// Creates a generic div to hold the movie
-				var $div = $("<div>");
+		
 				// Retrieves the Rating Data
 
+
+			$($imgs).on('click', function(){
+
 				// Creates an element to have the rating displayed
+            var state = $(this).data('state');
 
-			
+	        //----------------------------------------------------
 
 
-				
-				var $rating = $('<span class="rating">' + response.data[0].rating + '</span><br>');
-				// Displays the rating
+            if (state == 'still'){
+                $(this).data('state', 'animate').attr('src', $(this).data('animate'));
+            }
 
-				$div.append($rating);
-			
+            else {
+                $(this).data('state', 'still').attr('src', $(this).data('still'));
+            }
 
-				// Creates an element to hold the image
-				var $imgs = $('<img class="img"  alt="Static Image" data-alt="'+ response.data[0].images.downsized_medium.url + '" src=" ' + response.data[0].images.downsized_still.url + ' "></span>');
 
-				// Appends the image
-				$div.append($imgs);
 
-				
-
-				$('#gifsView').append($div);
-
+		
+})
 			
 //			
-		
+			
 
 
 
 
 		//on click change to GIF function
 
-$('img').on({
-    'click': function() {
-         var src = ($(this).attr('src') === response.data[0].images.downsized_medium.url)
-            ? response.data[0].images.downsized_still.url
-            : response.data[0].images.downsized_medium.url;
-         $(this).attr('src', src);
-    }
-});
-
- });
+// $('img').on({
+//     'click': function() {
+//          var src = ($(this).attr('src') === results[i].downsized_medium.url)
+//             ? results[i].downsized_still.url
+//             : results[i].downsized_medium.url;
+//          $(this).attr('src', src);
+    
+// }	
 
 
-
+ }
 
 
 
 
+
+
+
+		})
+		
 		}
+	
 
 		// ========================================================
 
@@ -110,7 +139,8 @@ $('img').on({
 
 			// We have this line so that users can hit "enter" instead of clicking on ht button and it won't move to the next page
 			return false;
-		});
+		})
+
 
 		// ========================================================
 
@@ -122,5 +152,5 @@ $('img').on({
 		// This calls the renderButtons() function
 		renderButtons();
 
-
 })
+
