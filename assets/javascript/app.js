@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 				
 
-				var food = $(this).attr('data-name');
+				 food = $(this).attr('data-name');
 			
 
 		
@@ -34,7 +34,7 @@ $(document).ready(function(){
               
 
                     var p = $('<p>').text("Rating: " + rating);
-                    var $imgs = $('<img class="img" data-still="' + results[i].images.downsized_still.url  + '" data-animate="'+ results[i].images.downsized_medium.url + '" src=" ' + results[i].images.downsized_still.url  + ' "><data-state="still"></span>');
+                    var $imgs = $('<img class="img" width="200px" height="150px" data-still="' + results[i].images.downsized_still.url  + '" data-animate="'+ results[i].images.downsized_medium.url + '" src=" ' + results[i].images.downsized_still.url  + ' "><data-state="still"></span>');
 
                     
 
@@ -76,16 +76,7 @@ $(document).ready(function(){
 
 
 
-		//on click change to GIF function
-
-// $('img').on({
-//     'click': function() {
-//          var src = ($(this).attr('src') === results[i].downsized_medium.url)
-//             ? results[i].downsized_still.url
-//             : results[i].downsized_medium.url;
-//          $(this).attr('src', src);
-    
-// }	
+	
 
 
  }
@@ -115,7 +106,7 @@ $(document).ready(function(){
 				// Then dynamicaly generates buttons for each movie in the array
 
 				// Note the jQUery syntax here...
-				var a = $('<button>') // This code $('<button>') is all jQuery needs to create the beginning and end tag. (<button></button>)
+				a = $('<button>') // This code $('<button>') is all jQuery needs to create the beginning and end tag. (<button></button>)
 				a.addClass('food'); // Added a class
 				a.attr('data-name', foods[i]); // Added a data-attribute
 				a.text(foods[i]); // Provided the initial button text
@@ -129,11 +120,12 @@ $(document).ready(function(){
 		$('#addFood').on('click', function() {
 
 			// This line of code will grab the input from the textbox
-			var food = $('#input-form').val().trim();
+			 food = $('#food-form').val();
 
-			// The movie from the textbox is then added to our array
+			// The food from the textbox is then added to our array
 			foods.push(food);
 
+		
 			// Our array then runs which handles the processing of our movie array
 			renderButtons();
 
@@ -144,13 +136,16 @@ $(document).ready(function(){
 
 		// ========================================================
 
+
+		renderButtons();
+
 		// Generic function for displaying the movieInfo
 		$(document).on('click', '.food', displayGIFInfo);
 
 		// ========================================================
 
 		// This calls the renderButtons() function
-		renderButtons();
+	
 
 })
 
