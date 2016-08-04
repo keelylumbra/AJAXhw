@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 
 			// Creates AJAX call for the specific movie being
-			$.ajax({url: "http://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=dc6zaTOxFJmzC&limit=10", method: 'GET'}).done(function(response) {
+			$.ajax({url: "https://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=dc6zaTOxFJmzC&limit=10", method: 'GET'}).done(function(response) {
 
 				var results = response.data;
 
