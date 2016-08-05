@@ -9,25 +9,34 @@ $(document).ready(function(){
 		// displayMovieInfo function now re-renders the HTML to display the appropriate content.
 		function displayGIFInfo() {
 
-			
+
+
+			var results
 
 				
 
 				 food = $(this).attr('data-name');
 			
 
-		
 				
+				
+				 $('#gifsView').empty()
+                	
 
 
 
 			// Creates AJAX call for the specific movie being
 			$.ajax({url: "https://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=dc6zaTOxFJmzC&limit=10", method: 'GET'}).done(function(response) {
 
+
+
+
 				var results = response.data;
 
-                for (var i = 0; i < results.length; i++) {
-                    var gifDiv = $('<div class="item">')
+                for (var i = 0; i<11; i++) {
+
+
+                 gifDiv = $('<div class="item col-md-4">')
 
                     var rating = results[i].rating;
 
@@ -107,7 +116,7 @@ $(document).ready(function(){
 
 				// Note the jQUery syntax here...
 				a = $('<button>') // This code $('<button>') is all jQuery needs to create the beginning and end tag. (<button></button>)
-				a.addClass('food'); // Added a class
+				a.addClass("food btn btn-warning btn-lg"); // Added a class
 				a.attr('data-name', foods[i]); // Added a data-attribute
 				a.text(foods[i]); // Provided the initial button text
 				$('#buttonsView').append(a); // Added the button to the HTML
